@@ -25,12 +25,15 @@ function cargarEventListeners() {
 // Funcion que añade el curso al carrito
 function comprarCurso(e) {
   e.preventDefault();
-  // Delegation para agregar-carrito
+  let curso
+  // Delegation para agregar - carrito
   if (e.target.classList.contains('agregar-carrito')) {
     const curso = e.target.parentElement.parentElement;
     // Enviamos el curso seleccionado para obtener sus datos
     leerDatosCurso(curso);
+
   }
+
 }
 
 // Lee los datos del curso
@@ -65,11 +68,12 @@ function eliminarCurso(e) {
   e.preventDefault();
 
   let curso, cursoID;
-  if (e.target.classList.contains('borrar-curso')) {
-    e.target.parentElement.parentElement.remove();
-    curso = e.target.parentElement.parentElement;
-    cursoID = curso.querySelector('a').getAttribute('data-id');
-  }
+
+  e.target.classList.contains('borrar-curso') && e.target.parentElement.parentElement.remove();
+  curso = e.target.parentElement.parentElement;
+  cursoID = curso.querySelector('a').getAttribute('data-id');
+
+
   eliminarCursoLocalStorage(cursoID);
 }
 
@@ -108,11 +112,8 @@ function obtenerCursosLocalStorage() {
   let cursosLS;
 
   // comprobamos si hay algo en localStorage
-  if (localStorage.getItem('cursos') === null) {
-    cursosLS = [];
-  } else {
-    cursosLS = JSON.parse(localStorage.getItem('cursos'));
-  }
+  (localStorage.getItem('cursos') === null) ? cursosLS = [] : cursosLS = JSON.parse(localStorage.getItem('cursos'))
+
   return cursosLS;
 
 }
@@ -147,9 +148,8 @@ function eliminarCursoLocalStorage(curso) {
 
   // Iteramos comparando el ID del curso borrado con los del LS
   cursosLS.forEach(function (cursoLS, index) {
-    if (cursoLS.id === curso) {
-      cursosLS.splice(index, 1);
-    }
+    cursoLS.id === curso && cursosLS.splice(index, 1)
+
   });
 
   // Añadimos el arreglo actual a LS
