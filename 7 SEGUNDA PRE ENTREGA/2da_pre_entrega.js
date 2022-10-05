@@ -1,3 +1,6 @@
+
+
+
 // Variables
 const carrito = document.getElementById('carrito');
 const cursos = document.getElementById('lista-cursos');
@@ -29,6 +32,11 @@ function comprarCurso(e) {
   // Delegation para agregar - carrito
   if (e.target.classList.contains('agregar-carrito')) {
     const curso = e.target.parentElement.parentElement;
+
+
+
+
+
     // Enviamos el curso seleccionado para obtener sus datos
     leerDatosCurso(curso);
 
@@ -44,6 +52,16 @@ function leerDatosCurso(curso) {
     precio: curso.querySelector('.precio span').textContent,
     id: curso.querySelector('a').getAttribute('data-id')
   };
+
+
+  //SWEET ALERT PARA CONFIRMAR EL CURSO EN EL CARRITO
+  Swal.fire({
+    position: 'top-end',
+    icon: 'success',
+    title: 'Curso agregado exitosamente',
+    showConfirmButton: false,
+    timer: 1500
+  })
 
   insertarCarrito(infoCurso);
 }
@@ -154,11 +172,28 @@ function eliminarCursoLocalStorage(curso) {
 
   // Añadimos el arreglo actual a LS
   localStorage.setItem('cursos', JSON.stringify(cursosLS));
+
+  Swal.fire({
+    position: 'top-end',
+    icon: 'error',
+    title: 'Curso eliminado',
+    showConfirmButton: false,
+    timer: 1500
+  })
 }
 
 // Elimina todos los cursos de localStorage
 function vaciarLocalStorage() {
   localStorage.clear();
+
+  //SWEET ALERT PARA CONFIRMAR EL CURSO EN EL CARRITO
+  Swal.fire({
+    position: 'top-end',
+    icon: 'error',
+    title: 'El carrito esta vacio',
+    showConfirmButton: false,
+    timer: 1500
+  })
 }
 
 
