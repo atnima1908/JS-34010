@@ -198,3 +198,32 @@ function vaciarLocalStorage() {
 
 
 ///////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+let divCafe = document.getElementById("cafe")
+//Petición con fetch
+fetch("https://api.sampleapis.com/coffee/hot")
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data)
+    for (let cafe of data) {
+      let recetaCafe = document.createElement("div")
+      recetaCafe.innerHTML = `<div id="cafe-card" class="card columns" style="width: 18rem;">
+                  <div class="card-body">
+                      <h5 class="card-title">${cafe.title}</h5>
+                      <p class="">${cafe.description}</p>
+                      <p>INGREDIENTES</p>
+                      <p class="">${cafe.ingredients}</p>
+                  </div>
+                  <img class="card-img-top" src="${cafe.image}">
+              </div>`
+      divCafe.appendChild(recetaCafe)
+    }
+  })
+
